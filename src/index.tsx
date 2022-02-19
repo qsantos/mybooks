@@ -213,11 +213,11 @@ function BookTable() {
                 >
                   {[10, 20, 30, 40, 50].map(pageSize => (
                     <option key={pageSize} value={pageSize}>
-                      Montrer {pageSize}
+                      Montrer {pageSize} livres par page
                     </option>
                   ))}
                   <option key={pageSize} value={99999999}>
-                    Montrer tous
+                    Montrer tous les livres
                   </option>
                 </select>
               </div>
