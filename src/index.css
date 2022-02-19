@@ -1,8 +1,13 @@
 body {
   margin: 3em;
+  background-attachment: fixed;
+  background-image: url("background.avif");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 table {
   width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 .clickable {
   text-decoration: underline;
@@ -11,5 +16,11 @@ table {
 h1 {
   text-align: center;
   font-family: cursive;
-  font-size: 3em;
+  font-size: 5em;
+  color: white;
+  width: fit-content;
+  margin: 1rem auto;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-text-stroke: 1px black;
 }
