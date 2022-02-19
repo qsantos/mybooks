@@ -20,9 +20,11 @@ class Book(NamedTuple):
     isbn: str
     read: bool
     summary: str
+    comic: bool
+    owned: bool
 
 
-def parse_book(book: pd.Series) -> dict:
+def parse_book(book: pd.Series, comic: bool, owned: bool) -> dict:
     publication = book['Date de publication']
     publication_date = None
     publication_year = None
@@ -44,14 +46,20 @@ def parse_book(book: pd.Series) -> dict:
         isbn=book['ISBN'],
         read=book['Lu'] == 'Oui',
         summary=book['Résumé'],
+        comic=comic,
+        owned=owned,
     )._asdict()
 
 
-def parse_books(books: pd.DataFrame) -> Iterator[dict]:
+def parse_books(books: pd.DataFrame, comic: bool, owned: bool) -> Iterator[dict]:
     for _, book in books.iterrows():
-        yield parse_book(book)
+        yield parse_book(book, comic=comic, owned=owned)
 
 
-df = pd.read_excel('MaBibliotheque.xls', na_filter=False)
-books = list(parse_books(df))
+df = pd.read_excel('MaBibliotheque.xls', na_filter=False, sheet_name=None)
+books: list[dict] = []
+books += parse_books(df['Livres'], comic=False, owned=True)
+books += parse_books(df['Livres - Liste de souhaits'], comic=False, owned=False)
+books += parse_books(df['Bandes Dessinées'], comic=True, owned=True)
+books += parse_books(df['Bandes Dessinées - Liste de sou'], comic=True, owned=False)
 print(json.dumps(books))
