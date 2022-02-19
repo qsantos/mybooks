@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useAsyncDebounce, useFilters, useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table'
+import { useFilters, useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table'
 
 import './index.css';
 import books from './books.json';
@@ -10,20 +10,12 @@ import books from './books.json';
 function DefaultColumnFilter({
   column: { filterValue, preFilteredRows, setFilter },
 }: any) {
-  const [value, setValue] = React.useState(filterValue || '')
-  const onChange = useAsyncDebounce(
-    value => setFilter(value || undefined),
-    200,
-  )
   const count = preFilteredRows.length
   const placeholder = `Filtrer parmi ${count} livres…`;
   return (
     <input
-      value={value}
-      onChange={e => {
-        setValue(e.target.value)
-        onChange(e.target.value)
-      }}
+      value={filterValue}
+      onChange={e => setFilter(e.target.value || undefined)}
       placeholder={placeholder}
     />
   )
@@ -110,16 +102,26 @@ function NumberRangeColumnFilter({
 }
 
 const BooleanCell = ({ value }: any) => value ? 'Oui' : 'Non';
-const ListCell = ({ value, key }: { value: [string], key: string }) => value.join(', ');
+const ClickableCell = ({ value, column }: { value: string, column: any }) => {
+  return <span className="clickable" onClick={e => column.setFilter(value)}>{value}</span>
+}
+const ClickableListCell = ({ value, column }: { value: [string], column: any }) => {
+  return <span>
+    {value
+      .map((str, i) => <span key={i} className="clickable" onClick={e => column.setFilter(str)}>{str}</span>)
+      .reduce((acc, item) => <>{acc}, {item}</>)
+    }
+  </span>
+}
 
 function App() {
   const columns = React.useMemo(() => [
       { accessor: 'title', Header: 'Titre' },
-      { accessor: 'authors', Header: 'Auteurs', Cell: ListCell },
-      { accessor: 'genres', Header: 'Genres', Cell: ListCell },
+      { accessor: 'authors', Header: 'Auteurs', Cell: ClickableListCell },
+      { accessor: 'genres', Header: 'Genres', Cell: ClickableListCell },
       { accessor: 'publication_year', Header: 'Année de publication', Filter: NumberRangeColumnFilter, filter: 'between' },
       { accessor: 'publication_date', Header: 'Date de publication' },
-      { accessor: 'editor', Header: 'Éditeur' },
+      { accessor: 'editor', Header: 'Éditeur', Cell: ClickableCell },
       { accessor: 'pages', Header: 'Pages', Filter: NumberRangeColumnFilter, filter: 'between' },
       { accessor: 'isbn', Header: 'ISBN' },
       { accessor: 'read', Header: 'Lu', Filter: SelectColumnFilter, Cell: BooleanCell },
