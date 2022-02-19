@@ -119,7 +119,9 @@ function BookTable() {
       { accessor: 'editor', Header: 'Éditeur', Cell: ClickableCell },
       { accessor: 'pages', Header: 'Pages', Filter: NumberRangeColumnFilter, filter: 'between' },
       { accessor: 'isbn', Header: 'ISBN' },
+      { accessor: 'comic', Header: 'BD', Filter: SelectColumnFilter, Cell: BooleanCell },
       { accessor: 'read', Header: 'Lu', Filter: SelectColumnFilter, Cell: BooleanCell },
+      { accessor: 'owned', Header: "J'ai", Filter: SelectColumnFilter, Cell: BooleanCell },
   ], [])
 
   const data = React.useMemo(() => books, [])
