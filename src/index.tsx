@@ -45,7 +45,7 @@ function SelectColumnFilter({
       <option value="">Tous</option>
       {options.map((option, i) => (
         <option key={i} value={option}>
-          {option === true ? 'Oui' : option === false ? 'Non' : option}
+          {option === true ? '✅' : option === false ? '❌' : option}
         </option>
       ))}
     </select>
@@ -96,7 +96,7 @@ function NumberRangeColumnFilter({
   )
 }
 
-const BooleanCell = ({ value }: any) => value ? 'Oui' : 'Non';
+const BooleanCell = ({ value }: any) => value ? '✅' : '❌';
 const ClickableCell = ({ value, column }: { value: string, column: any }) => {
   return <span className="clickable" onClick={e => column.setFilter(value)}>{value}</span>
 }
