@@ -165,16 +165,11 @@ function BookTable() {
                     fontWeight: 'bold',
                   }}
                 >
-                  {column.render('Header')}
-                  <div>{column.canFilter ? column.render('Filter') : null}</div>
                   <span {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {
-                      column.isSortedDesc ? '🔽' :
-                      column.isSorted ? '🔼' :
-                      column.canSort ? '🔀' :
-                      ''
-                    }
+                  {column.render('Header')}
+                  {column.isSortedDesc ? ' 🔽' : column.isSorted ? ' 🔼' : ''}
                   </span>
+                  <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </th>
               ))}
             </tr>
