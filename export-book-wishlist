@@ -22,7 +22,7 @@ class Book(NamedTuple):
     summary: str
 
 
-def parse_book(book: pd.Series) -> Book:
+def parse_book(book: pd.Series) -> dict:
     publication = book['Date de publication']
     publication_date = None
     publication_year = None
@@ -47,7 +47,7 @@ def parse_book(book: pd.Series) -> Book:
     )._asdict()
 
 
-def parse_books(books: pd.DataFrame) -> Iterator[Book]:
+def parse_books(books: pd.DataFrame) -> Iterator[dict]:
     for _, book in books.iterrows():
         yield parse_book(book)
 
