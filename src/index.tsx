@@ -130,7 +130,7 @@ function BookTable() {
 
   const table = useTable(
     // @ts-ignore: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52969
-    { columns, data, defaultColumn, initialState: {sortBy: [{id: 'title', desc: false}]} },
+    { columns, data, defaultColumn, initialState: {sortBy: [{id: 'title', desc: false}], pageSize: 25} },
     useFilters, useGlobalFilter, useSortBy, usePagination,
   ) as any
   const {
