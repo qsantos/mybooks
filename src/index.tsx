@@ -108,7 +108,7 @@ const ClickableListCell = ({ value, column }: { value: [string], column: any }) 
   </span>
 }
 
-function App() {
+function BookTable() {
   const columns = React.useMemo(() => [
       { accessor: 'title', Header: 'Titre' },
       { accessor: 'authors', Header: 'Auteurs', Cell: ClickableListCell },
@@ -148,7 +148,6 @@ function App() {
   } = table;
 
   return (
-      <div className="App">
       <table {...getTableProps()} style={{ borderCollapse: 'collapse' }}>
         <thead>
           {headerGroups.map((headerGroup: any) => (
@@ -248,8 +247,16 @@ function App() {
           })}
         </tbody>
       </table>
+  )
+}
+
+function App() {
+  return (
+    <div className="App">
+      <h1>📖 La bibliothèque de Clémentine 📖</h1>
+      <BookTable />
     </div>
-  );
+  )
 }
 
 ReactDOM.render(

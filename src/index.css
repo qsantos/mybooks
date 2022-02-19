@@ -8,3 +8,8 @@ table {
   text-decoration: underline;
   color: darkblue;
 }
+h1 {
+  text-align: center;
+  font-family: cursive;
+  font-size: 3em;
+}
