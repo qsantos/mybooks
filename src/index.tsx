@@ -152,19 +152,6 @@ function BookTable() {
   return (
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map((headerGroup: any) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column: any) => (
-                <th {...column.getHeaderProps()}>
-                  <span {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render('Header')}
-                  {column.isSortedDesc ? ' 🔽' : column.isSorted ? ' 🔼' : ''}
-                  </span>
-                  <div>{column.canFilter ? column.render('Filter') : null}</div>
-                </th>
-              ))}
-            </tr>
-          ))}
           <tr>
             <th colSpan={visibleColumns.length}>
               <div className="pagination">
@@ -212,6 +199,19 @@ function BookTable() {
               </div>
             </th>
           </tr>
+          {headerGroups.map((headerGroup: any) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column: any) => (
+                <th {...column.getHeaderProps()}>
+                  <span {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render('Header')}
+                  {column.isSortedDesc ? ' 🔽' : column.isSorted ? ' 🔼' : ''}
+                  </span>
+                  <div>{column.canFilter ? column.render('Filter') : null}</div>
+                </th>
+              ))}
+            </tr>
+          ))}
         </thead>
         <tbody {...getTableBodyProps()}>
           {page.map((row: any) => {
