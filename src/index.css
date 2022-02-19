@@ -12,11 +12,6 @@ table {
   background-color: rgba(255, 255, 255, 0.9);
   border-collapse: collapse;
 }
-thead th {
-  border-bottom: solid 1px black;
-  background: aliceblue;
-  font-weight: bold;
-}
 tbody tr {
   height:5em;
 }
