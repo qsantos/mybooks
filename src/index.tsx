@@ -16,7 +16,7 @@ function DefaultColumnFilter({
     200,
   )
   const count = preFilteredRows.length
-  const placeholder = `Search ${count} records...`;
+  const placeholder = `Filtrer parmi ${count} livres…`;
   return (
     <input
       value={value}
@@ -198,11 +198,11 @@ function App() {
                 <span>
                   Page{' '}
                   <strong>
-                    {pageIndex + 1} of {pageOptions.length}
+                    {pageIndex + 1} sur {pageOptions.length}
                   </strong>{' '}
                 </span>
                 <span>
-                  | Go to page:{' '}
+                  | Aller à la page : {' '}
                   <input
                     type="number"
                     defaultValue={pageIndex + 1}
@@ -221,7 +221,7 @@ function App() {
                 >
                   {[10, 20, 30, 40, 50].map(pageSize => (
                     <option key={pageSize} value={pageSize}>
-                      Show {pageSize}
+                      Montrer {pageSize}
                     </option>
                   ))}
                 </select>
