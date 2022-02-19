@@ -226,7 +226,7 @@ function BookTable() {
                 </select>
               </div>
             </th>
-            </tr>
+          </tr>
         </thead>
         <tbody {...getTableBodyProps()}>
           {page.map((row: any) => {
