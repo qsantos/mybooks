@@ -12,13 +12,14 @@ function DefaultColumnFilter({
 }: any) {
   const count = preFilteredRows.length
   const placeholder = `Filtrer parmi ${count} livres…`;
-  return (
+  return <>
     <input
-      value={filterValue}
+      value={filterValue || ""}
       onChange={e => setFilter(e.target.value || undefined)}
       placeholder={placeholder}
     />
-  )
+    {filterValue && <span className="clearButton" onClick={e => setFilter(undefined)}>×</span>}
+  </>
 }
 
 function SelectColumnFilter({

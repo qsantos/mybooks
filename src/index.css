@@ -24,3 +24,12 @@ h1 {
   background-color: rgba(0, 0, 0, 0.5);
   -webkit-text-stroke: 1px black;
 }
+.clearButton {
+  font-family: sans-serif;
+  color:grey;
+  position:relative;
+  display:inline-block;
+  width:0;
+  left:-1em;
+  user-select: none;
+}
