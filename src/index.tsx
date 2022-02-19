@@ -153,7 +153,7 @@ function App() {
 
   return (
       <div className="App">
-      <table {...getTableProps()} style={{ 'border-collapse': 'collapse' }}>
+      <table {...getTableProps()} style={{ borderCollapse: 'collapse' }}>
         <thead>
           {headerGroups.map((headerGroup: any) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
