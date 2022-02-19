@@ -172,7 +172,7 @@ function App() {
                     {
                       column.isSortedDesc ? '🔽' :
                       column.isSorted ? '🔼' :
-                      column.canSort ? '🔽🔼' :
+                      column.canSort ? '🔀' :
                       ''
                     }
                   </span>
