@@ -112,8 +112,8 @@ const ClickableListCell = ({ value, column }: { value: [string], column: any }) 
 function BookTable() {
   const columns = React.useMemo(() => [
       { accessor: 'title', Header: 'Titre' },
-      { accessor: 'authors', Header: 'Auteurs', Cell: ClickableListCell },
-      { accessor: 'genres', Header: 'Genres', Cell: ClickableListCell },
+      { accessor: 'authors', Header: 'Auteurs', Cell: ClickableListCell, disableSortBy: true },
+      { accessor: 'genres', Header: 'Genres', Cell: ClickableListCell, disableSortBy: true },
       { accessor: 'publication_year', Header: 'Année', Filter: NumberRangeColumnFilter, filter: 'between' },
       { accessor: 'publication_date', Header: 'Date de publication' },
       { accessor: 'editor', Header: 'Éditeur', Cell: ClickableCell },
