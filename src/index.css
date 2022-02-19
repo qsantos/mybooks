@@ -1,12 +1,14 @@
 body {
-  margin: 3em;
   background-attachment: fixed;
   background-image: url("background.avif");
   background-repeat: no-repeat;
   background-size: cover;
+  padding:0;
+  margin:0;
 }
 table {
-  width: 100%;
+  margin: 3em;
+  width: calc(100% - 6em);
   background-color: rgba(255, 255, 255, 0.9);
 }
 tbody tr {
@@ -19,13 +21,11 @@ tbody tr {
 h1 {
   text-align: center;
   font-family: cursive;
-  font-size: 5em;
+  font-size: 70px;
   color: white;
-  width: fit-content;
-  margin: 1rem auto;
-  padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.5);
-  -webkit-text-stroke: 1px black;
+  padding-top:10px;
+  margin: 0;
+  background-color: black;
 }
 .clearButton {
   font-family: sans-serif;
