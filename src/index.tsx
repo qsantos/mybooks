@@ -115,7 +115,7 @@ function BookTable() {
       { accessor: 'authors', Header: 'Auteurs', Cell: ClickableListCell, disableSortBy: true },
       { accessor: 'genres', Header: 'Genres', Cell: ClickableListCell, disableSortBy: true },
       { accessor: 'publication_year', Header: 'Année', Filter: NumberRangeColumnFilter, filter: 'between' },
-      { accessor: 'publication_date', Header: 'Date de publication' },
+      { accessor: 'publication_date', Header: 'Publication' },
       { accessor: 'editor', Header: 'Éditeur', Cell: ClickableCell },
       { accessor: 'pages', Header: 'Pages', Filter: NumberRangeColumnFilter, filter: 'between' },
       { accessor: 'isbn', Header: 'ISBN' },
