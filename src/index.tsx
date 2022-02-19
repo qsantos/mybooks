@@ -72,30 +72,24 @@ function NumberRangeColumnFilter({
     >
       <input
         value={filterValue[0] || ''}
-        type="number"
+        size={3}
         onChange={e => {
           const val = e.target.value
           setFilter((old = []) => [val ? parseInt(val, 10) : undefined, old[1]])
         }}
-        placeholder={`Min (${min})`}
-        style={{
-          width: '70px',
-          marginRight: '0.5rem',
-        }}
+        placeholder={min.toString()}
+        style={{ marginRight: '0.5rem' }}
       />
       à
       <input
         value={filterValue[1] || ''}
-        type="number"
+        size={3}
         onChange={e => {
           const val = e.target.value
           setFilter((old = []) => [old[0], val ? parseInt(val, 10) : undefined])
         }}
-        placeholder={`Max (${max})`}
-        style={{
-          width: '70px',
-          marginLeft: '0.5rem',
-        }}
+        placeholder={max.toString()}
+        style={{ marginLeft: '0.5rem' }}
       />
     </div>
   )
@@ -119,7 +113,7 @@ function App() {
       { accessor: 'title', Header: 'Titre' },
       { accessor: 'authors', Header: 'Auteurs', Cell: ClickableListCell },
       { accessor: 'genres', Header: 'Genres', Cell: ClickableListCell },
-      { accessor: 'publication_year', Header: 'Année de publication', Filter: NumberRangeColumnFilter, filter: 'between' },
+      { accessor: 'publication_year', Header: 'Année', Filter: NumberRangeColumnFilter, filter: 'between' },
       { accessor: 'publication_date', Header: 'Date de publication' },
       { accessor: 'editor', Header: 'Éditeur', Cell: ClickableCell },
       { accessor: 'pages', Header: 'Pages', Filter: NumberRangeColumnFilter, filter: 'between' },
