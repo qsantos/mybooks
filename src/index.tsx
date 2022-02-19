@@ -220,6 +220,9 @@ function BookTable() {
                       Montrer {pageSize}
                     </option>
                   ))}
+                  <option key={pageSize} value={99999999}>
+                    Montrer tous
+                  </option>
                 </select>
               </div>
             </th>
