@@ -4,3 +4,7 @@ body {
 table {
   width: 100%;
 }
+.clickable {
+  text-decoration: underline;
+  color: darkblue;
+}
