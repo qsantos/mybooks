@@ -185,30 +185,26 @@ function BookTable() {
                 <button onClick={() => previousPage()} disabled={!canPreviousPage}>
                   {'<'}
                 </button>{' '}
+                <span>
+                  Page{' '}
+                  <input
+                    type="number"
+                    value={pageIndex + 1}
+                    size={3}
+                    onChange={e => {
+                      const page = e.target.value ? Number(e.target.value) - 1 : 0
+                      gotoPage(page)
+                    }}
+                  />
+                  sur {pageOptions.length}
+                </span>
+                {' '}
                 <button onClick={() => nextPage()} disabled={!canNextPage}>
                   {'>'}
                 </button>{' '}
                 <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
                   {'>>'}
                 </button>{' '}
-                <span>
-                  Page{' '}
-                  <strong>
-                    {pageIndex + 1} sur {pageOptions.length}
-                  </strong>{' '}
-                </span>
-                <span>
-                  | Aller à la page : {' '}
-                  <input
-                    type="number"
-                    defaultValue={pageIndex + 1}
-                    onChange={e => {
-                      const page = e.target.value ? Number(e.target.value) - 1 : 0
-                      gotoPage(page)
-                    }}
-                    style={{ width: '100px' }}
-                  />
-                </span>{' '}
                 <select
                   value={pageSize}
                   onChange={e => {
