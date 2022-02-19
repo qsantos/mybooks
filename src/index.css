@@ -10,9 +10,19 @@ table {
   margin: 3em;
   width: calc(100% - 6em);
   background-color: rgba(255, 255, 255, 0.9);
+  border-collapse: collapse;
+}
+thead th {
+  border-bottom: solid 1px black;
+  background: aliceblue;
+  font-weight: bold;
 }
 tbody tr {
   height:5em;
+}
+tbody td {
+  padding: 10px;
+  border-top: solid 1px gray;
 }
 .clickable {
   text-decoration: underline;
