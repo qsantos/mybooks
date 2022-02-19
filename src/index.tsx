@@ -66,11 +66,7 @@ function NumberRangeColumnFilter({
   }, [id, preFilteredRows])
 
   return (
-    <div
-      style={{
-        display: 'flex',
-      }}
-    >
+    <div style={{ display: 'flex' }}>
       <input
         value={filterValue[0] || ''}
         size={3}
@@ -154,19 +150,12 @@ function BookTable() {
   } = table;
 
   return (
-      <table {...getTableProps()} style={{ borderCollapse: 'collapse' }}>
+      <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup: any) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column: any) => (
-                <th
-                  {...column.getHeaderProps()}
-                  style={{
-                    borderBottom: 'solid 1px black',
-                    background: 'aliceblue',
-                    fontWeight: 'bold',
-                  }}
-                >
+                <th {...column.getHeaderProps()}>
                   <span {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render('Header')}
                   {column.isSortedDesc ? ' 🔽' : column.isSorted ? ' 🔼' : ''}
@@ -233,10 +222,6 @@ function BookTable() {
                   return (
                     <td
                       {...cell.getCellProps()}
-                      style={{
-                        padding: '10px',
-                        borderTop: 'solid 1px gray',
-                      }}
                     >
                       {cell.render('Cell')}
                     </td>
