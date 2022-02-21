@@ -171,6 +171,7 @@ function BookTable() {
                       const page = e.target.value ? Number(e.target.value) - 1 : 0
                       gotoPage(page)
                     }}
+                    style={{ maxWidth: '2em' }}
                   />
                   sur {pageOptions.length}
                 </span>
