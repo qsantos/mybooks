@@ -239,7 +239,7 @@ function BookTable() {
 function App() {
   return (
     <div className="App">
-      <h1>📖 La bibliothèque de Clémentine 📖</h1>
+      <h1>La bibliothèque de Clémentine</h1>
       <BookTable />
     </div>
   )
