@@ -14,6 +14,11 @@ table {
   border-radius:5px;
   width:100%;
 }
+@media (min-width: 500px) and (max-width: 1500px) {
+  body {
+    background-size: 1500px;
+  }
+}
 @media (max-width: 1024px) {
   th:nth-child(n+2):nth-child(-n+8),
   td:nth-child(n+2):nth-child(-n+8)
@@ -54,10 +59,8 @@ h1 {
   font-size: 50px;
   font-weight:normal;
   overflow:visible;
-  color: white;
   margin: 0 auto;
   padding: 10px 10px 0;
-  background-color: rgba(0, 0, 0, .9);
 }
 .clear-button {
   font-family: sans-serif;
