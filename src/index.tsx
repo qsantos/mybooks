@@ -201,7 +201,7 @@ function BookTable() {
             </th>
           </tr>
           {headerGroups.map((headerGroup: any) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
+            <tr className="column-header" {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column: any) => (
                 <th {...column.getHeaderProps()}>
                   <span {...column.getHeaderProps(column.getSortByToggleProps())}>

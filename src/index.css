@@ -5,23 +5,32 @@ body {
   background-size: cover;
   padding:0;
   margin:0;
+  font-family: sans-serif;
 }
 table {
   margin: 3em;
   width: calc(100% - 6em);
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: white;
   border-collapse: collapse;
   border-radius:5px;
+}
+thead {
+  border-bottom: solid 2px black;
 }
 thead th {
   padding:5px;
 }
+.column-header {
+  text-align: left;
+}
 tbody tr {
   height:5em;
 }
+tbody tr:nth-child(2n+1) {
+  background-color: #eee;
+}
 tbody td {
   padding: 10px;
-  border-top: solid 1px gray;
 }
 .clickable {
   text-decoration: underline;
