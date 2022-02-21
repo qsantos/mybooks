@@ -28,13 +28,14 @@ tbody td {
   color: darkblue;
 }
 h1 {
-  text-align: center;
-  font-family: cursive;
-  font-size: 70px;
+  font-family: Z003, cursive;
+  font-size: 50px;
+  font-weight:normal;
+  overflow:visible;
   color: white;
-  padding-top:10px;
-  margin: 0;
-  background-color: black;
+  margin: 0 auto;
+  padding: 10px 10px 0;
+  background-color: rgba(0, 0, 0, .9);
 }
 .clearButton {
   font-family: sans-serif;
