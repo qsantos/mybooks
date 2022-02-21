@@ -8,11 +8,24 @@ body {
   font-family: sans-serif;
 }
 table {
-  margin: 3em;
-  width: calc(100% - 6em);
+  margin:3em auto;
   background-color: white;
   border-collapse: collapse;
   border-radius:5px;
+  width:100%;
+}
+@media (max-width: 1024px) {
+  th:nth-child(n+2):nth-child(-n+8),
+  td:nth-child(n+2):nth-child(-n+8)
+  {
+    display:none;
+  }
+}
+@media (min-width: 1800px) {
+  table {
+    margin: 3em;
+    width: calc(100% - 6em);
+  }
 }
 thead {
   border-bottom: solid 2px black;
