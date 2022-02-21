@@ -156,10 +156,10 @@ function BookTable() {
             <th colSpan={visibleColumns.length}>
               <div className="pagination">
                 <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-                  {'<<'}
+                  {'⏮'}
                 </button>{' '}
                 <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-                  {'<'}
+                  {'◄'}
                 </button>{' '}
                 <span>
                   Page{' '}
@@ -176,11 +176,12 @@ function BookTable() {
                 </span>
                 {' '}
                 <button onClick={() => nextPage()} disabled={!canNextPage}>
-                  {'>'}
+                  {'►'}
                 </button>{' '}
                 <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-                  {'>>'}
-                </button>{' '}
+                  {'⏭'}
+                </button>
+                <br />
                 <select
                   value={pageSize}
                   onChange={e => {
