@@ -18,7 +18,7 @@ function DefaultColumnFilter({
       onChange={e => setFilter(e.target.value || undefined)}
       placeholder={placeholder}
     />
-    {filterValue && <span className="clearButton" onClick={e => setFilter(undefined)}>×</span>}
+    {filterValue && <span className="clear-button" onClick={e => setFilter(undefined)}>×</span>}
   </>
 }
 
