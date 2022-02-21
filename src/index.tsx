@@ -22,33 +22,33 @@ function DefaultColumnFilter({
   </>
 }
 
-function SelectColumnFilter({
+function BooleanColumnFilter({
   column: { filterValue, setFilter, preFilteredRows, id },
 }: any) {
-  // Calculate the options for filtering
-  // using the preFilteredRows
-  const options = React.useMemo(() => {
-    const options = new Set()
-    preFilteredRows.forEach((row: any) => {
-      options.add(row.values[id])
-    })
-    // @ts-ignore
-    return [...options.values()]
-  }, [id, preFilteredRows])
+  const ref = React.useRef() as React.MutableRefObject<HTMLInputElement>;;
 
-  // Render a multi-select box
+  React.useEffect(() => {
+    if (ref.current == null) {
+      return;
+    }
+    if (filterValue === true) {
+      ref.current.checked = true;
+      ref.current.indeterminate = false;
+    } else if (filterValue === false) {
+      ref.current.checked = false;
+      ref.current.indeterminate = false;
+    } else {
+      ref.current.checked = false;
+      ref.current.indeterminate = true;
+    }
+  }, [filterValue]);
   return (
-    <select
+    <input
+      type="checkbox"
       value={filterValue}
-      onChange={e => setFilter(e.target.value || undefined)}
-    >
-      <option value="">Tous</option>
-      {options.map((option, i) => (
-        <option key={i} value={option}>
-          {option === true ? '✅' : option === false ? '❌' : option}
-        </option>
-      ))}
-    </select>
+      onChange={e => setFilter(filterValue === true ? false : filterValue === false ? undefined : true)}
+      ref={ref}
+    />
   )
 }
 
@@ -115,9 +115,9 @@ function BookTable() {
       { accessor: 'editor', Header: 'Éditeur', Cell: ClickableCell },
       { accessor: 'pages', Header: 'Pages', Filter: NumberRangeColumnFilter, filter: 'between' },
       { accessor: 'isbn', Header: 'ISBN' },
-      { accessor: 'comic', Header: 'BD', Filter: SelectColumnFilter, Cell: BooleanCell },
-      { accessor: 'read', Header: 'Lu', Filter: SelectColumnFilter, Cell: BooleanCell },
-      { accessor: 'owned', Header: "J'ai", Filter: SelectColumnFilter, Cell: BooleanCell },
+      { accessor: 'comic', Header: 'BD', Filter: BooleanColumnFilter, filter: "equals", Cell: BooleanCell, disableSortBy: true },
+      { accessor: 'read', Header: 'Lu', Filter: BooleanColumnFilter, filter: "equals", Cell: BooleanCell, disableSortBy: true },
+      { accessor: 'owned', Header: "J'ai", Filter: BooleanColumnFilter, filter: "equals", Cell: BooleanCell, disableSortBy: true },
   ], [])
 
   const data = React.useMemo(() => books, [])
