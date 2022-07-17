@@ -12,7 +12,6 @@ body {
 }
 table {
   margin:0 auto;
-  background-color: white;
   border-collapse: collapse;
   border-radius:5px;
   width:100%;
@@ -41,8 +40,12 @@ thead th {
 tbody tr {
   height:5em;
 }
+thead tr,
+tbody tr:nth-child(2n+0) {
+  background-color: rgba(255, 255, 255, .9);
+}
 tbody tr:nth-child(2n+1) {
-  background-color: #eee;
+  background-color: rgba(238, 238, 238, .9);
 }
 tbody td {
   padding: 10px;
