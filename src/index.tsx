@@ -132,7 +132,7 @@ function BookTable() {
     useFilters, useGlobalFilter, useSortBy, usePagination,
   ) as any
   const {
-    getTableProps,
+      getTableProps,
       getTableBodyProps,
       headerGroups,
       page,
