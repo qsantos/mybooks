@@ -121,7 +121,7 @@ function BookTable({ owned }: { owned: boolean }) {
       { accessor: 'read', Header: 'Lu', Filter: BooleanColumnFilter, filter: "equals", Cell: BooleanCell, disableSortBy: true },
   ], [])
 
-  const data = books.filter(book => book.owned === owned);
+  const data = React.useMemo(() => books.filter(book => book.owned === owned), []);
 
   const defaultColumn = React.useMemo(() => ({
     Filter: DefaultColumnFilter,
