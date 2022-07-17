@@ -7,8 +7,11 @@ body {
   margin:0;
   font-family: sans-serif;
 }
+.owned-or-not-tabs ul {
+  margin: 0;
+}
 table {
-  margin:3em auto;
+  margin:0 auto;
   background-color: white;
   border-collapse: collapse;
   border-radius:5px;
@@ -24,12 +27,6 @@ table {
   td:nth-child(n+2):nth-child(-n+8)
   {
     display:none;
-  }
-}
-@media (min-width: 1800px) {
-  table {
-    margin: 3em;
-    width: calc(100% - 6em);
   }
 }
 thead {

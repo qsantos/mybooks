@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useFilters, useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 import './index.css';
 import books from './books.json';
@@ -105,7 +107,7 @@ const ClickableListCell = ({ value, column }: { value: [string], column: any }) 
   </span>
 }
 
-function BookTable() {
+function BookTable({ owned }: { owned: boolean }) {
   const columns = React.useMemo(() => [
       { accessor: 'title', Header: 'Titre' },
       { accessor: 'authors', Header: 'Auteurs', Cell: ClickableListCell, disableSortBy: true },
@@ -117,10 +119,9 @@ function BookTable() {
       { accessor: 'isbn', Header: 'ISBN' },
       { accessor: 'comic', Header: 'BD', Filter: BooleanColumnFilter, filter: "equals", Cell: BooleanCell, disableSortBy: true },
       { accessor: 'read', Header: 'Lu', Filter: BooleanColumnFilter, filter: "equals", Cell: BooleanCell, disableSortBy: true },
-      { accessor: 'owned', Header: "J'ai", Filter: BooleanColumnFilter, filter: "equals", Cell: BooleanCell, disableSortBy: true },
   ], [])
 
-  const data = React.useMemo(() => books, [])
+  const data = books.filter(book => book.owned === owned);
 
   const defaultColumn = React.useMemo(() => ({
     Filter: DefaultColumnFilter,
@@ -240,8 +241,19 @@ function BookTable() {
 function App() {
   return (
     <div className="App">
-      <h1>La bibliothèque de Clémentine</h1>
-      <BookTable />
+      <h1>Les livres de Clémentine</h1>
+      <Tabs className="owned-or-not-tabs">
+        <TabList>
+          <Tab>Ma bibliothèque</Tab>
+          <Tab>Ma liste de souhaits</Tab>
+        </TabList>
+        <TabPanel>
+          <BookTable owned={true} />
+        </TabPanel>
+        <TabPanel>
+          <BookTable owned={false} />
+        </TabPanel>
+      </Tabs>
     </div>
   )
 }
