@@ -1,8 +1,15 @@
 # MyBooks
 
-[My Library](https://play.google.com/store/apps/details?id=com.vgm.mylibrary) (“Ma Bibliothèque” in French) is an Android app that lets you catalog your books and other media.
-This project uses the XLS export to generate a client-side only app to visualize and share this list.
-The result is a web page that allows the user to browser your owned and wished books easily.
+[My Library](https://play.google.com/store/apps/details?id=com.vgm.mylibrary) (“Ma Bibliothèque” in French) is an Android app that lets you catalog the books you own.
+This can be useful to let people know what books you already have before they give it to you as a present.
+You can also list the books you are interested in.
+
+However, it can be inconvenient to share this list with other people.
+I developed MyBooks, a client-only web app to share this information in a convenient format.
+You can have a look at the live demo to test what kind of filtering and sorting features it supports.
+Note that the books listed in the live demo are for demonstration purpose only, and do not correspond to the books I own or wish for.
+
+![Screenshot showing the app in action](screenshot.png)
 
 Have a look at the [live example](https://mybooks.qsantos.fr/).
 Note that I selected these books for the sake of example, this is not my actual list of books.
