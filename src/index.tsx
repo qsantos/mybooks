@@ -241,7 +241,7 @@ function BookTable({ owned }: { owned: boolean }) {
 function App() {
   return (
     <div className="App">
-      <h1>Les livres de Clémentine</h1>
+      <h1>Mes livres</h1>
       <Tabs className="owned-or-not-tabs">
         <TabList>
           <Tab>Ma bibliothèque</Tab>
