@@ -7,7 +7,6 @@ You can also list the books you are interested in.
 However, it can be inconvenient to share this list with other people.
 I developed MyBooks, a client-only web app to share this information in a convenient format.
 You can have a look at the live demo to test what kind of filtering and sorting features it supports.
-Note that the books listed in the live demo are for demonstration purpose only, and do not correspond to the books I own or wish for.
 
 ![Screenshot showing the app in action](screenshot.png)
 
