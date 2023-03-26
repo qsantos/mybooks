@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import json
 import re
+from argparse import ArgumentParser
 from typing import Iterator, List, NamedTuple, Optional
 
 import pandas as pd
@@ -56,10 +57,19 @@ def parse_books(books: pd.DataFrame, comic: bool, owned: bool) -> Iterator[dict]
         yield parse_book(book, comic=comic, owned=owned)
 
 
-df = pd.read_excel('MaBibliotheque.xls', na_filter=False, sheet_name=None)
-books: list[dict] = []
-books += parse_books(df['Livres'], comic=False, owned=True)
-books += parse_books(df['Livres - Liste de souhaits'], comic=False, owned=False)
-books += parse_books(df['Bandes Dessinées'], comic=True, owned=True)
-books += parse_books(df['Bandes Dessinées - Liste de sou'], comic=True, owned=False)
-print(json.dumps(books))
+def main() -> None:
+    parser = ArgumentParser()
+    parser.add_argument('filename', help='XLS files from MyBibliotheque, e.g. MyBibliotheque.xls')
+    args = parser.parse_args()
+
+    df = pd.read_excel(args.filename, na_filter=False, sheet_name=None)
+    books: list[dict] = []
+    books += parse_books(df['Livres'], comic=False, owned=True)
+    books += parse_books(df['Livres - Liste de souhaits'], comic=False, owned=False)
+    books += parse_books(df['Bandes Dessinées'], comic=True, owned=True)
+    books += parse_books(df['Bandes Dessinées - Liste de sou'], comic=True, owned=False)
+    print(json.dumps(books))
+
+
+if __name__ == '__main__':
+    main()
