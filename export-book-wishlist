@@ -59,7 +59,9 @@ def parse_books(books: pd.DataFrame, comic: bool, owned: bool) -> Iterator[dict]
 
 def main() -> None:
     parser = ArgumentParser()
-    parser.add_argument('filename', help='XLS files from MyBibliotheque, e.g. MyBibliotheque.xls')
+    parser.add_argument(
+        'filename', help='XLS files from MyBibliotheque, e.g. MyBibliotheque.xls'
+    )
     args = parser.parse_args()
 
     df = pd.read_excel(args.filename, na_filter=False, sheet_name=None)
