@@ -10,8 +10,7 @@ You can have a look at the live demo to test what kind of filtering and sorting 
 
 ![Screenshot showing the app in action](screenshot.png)
 
-Have a look at the [live example](https://mybooks.qsantos.fr/).
-Note that I selected these books for the sake of example, this is not my actual list of books.
+Have a look at a [live example](https://mybooks.qsantos.fr/).
 
 # Installation Instructions
 
