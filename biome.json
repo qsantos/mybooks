@@ -1,0 +1,23 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.3.3/schema.json",
+    "organizeImports": {
+        "enabled": true
+    },
+    "formatter": {
+        "ignore": ["src/books.json"],
+        "indentStyle": "space",
+        "indentWidth": 4
+    },
+    "linter": {
+        "enabled": true,
+        "ignore": ["src/books.json"],
+        "rules": {
+            "recommended": true,
+            "a11y": {
+                "useKeyWithClickEvents": "off",
+                "useMediaCaption": "off",
+                "useValidAnchor": "off"
+            }
+        }
+    }
+}
