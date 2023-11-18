@@ -22,3 +22,11 @@ h1 {
     max-width: 30px;
     max-height: 42px;
 }
+.ag-root-wrapper, .ag-root {
+    overflow: inherit !important;
+}
+.ag-header {
+    position: sticky;
+    top: 0px;
+    z-index: 100;
+}
