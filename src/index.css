@@ -10,50 +10,6 @@ body {
 .owned-or-not-tabs ul {
   margin: 0;
 }
-table {
-  margin:0 auto;
-  border-collapse: collapse;
-  border-radius:5px;
-  width:100%;
-}
-@media (min-width: 500px) and (max-width: 1500px) {
-  body {
-    background-size: 1500px;
-  }
-}
-@media (max-width: 1024px) {
-  th:nth-child(n+2):nth-child(-n+8),
-  td:nth-child(n+2):nth-child(-n+8)
-  {
-    display:none;
-  }
-}
-thead {
-  border-bottom: solid 2px black;
-}
-thead th {
-  padding:5px;
-}
-.column-header {
-  text-align: left;
-}
-tbody tr {
-  height:5em;
-}
-thead tr,
-tbody tr:nth-child(2n+0) {
-  background-color: rgba(255, 255, 255, .9);
-}
-tbody tr:nth-child(2n+1) {
-  background-color: rgba(238, 238, 238, .9);
-}
-tbody td {
-  padding: 10px;
-}
-.clickable {
-  text-decoration: underline;
-  color: darkblue;
-}
 h1 {
   font-family: Z003, cursive;
   font-size: 50px;
@@ -61,13 +17,4 @@ h1 {
   overflow:visible;
   margin: 0 auto;
   padding: 10px 10px 0;
-}
-.clear-button {
-  font-family: sans-serif;
-  color:grey;
-  position:relative;
-  display:inline-block;
-  width:0;
-  left:-1em;
-  user-select: none;
 }

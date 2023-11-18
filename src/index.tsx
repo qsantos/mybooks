@@ -1,241 +1,101 @@
 import React from 'react';
+import { forwardRef, useEffect, useImperativeHandle , useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { useFilters, useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table'
+import { ColDef, FilterChangedEvent, IFloatingFilterParams, IFloatingFilterParent } from '@ag-grid-community/core';
+import { AgGridReact, IFloatingFilterReactComp } from '@ag-grid-community/react';
+import { ModuleRegistry } from '@ag-grid-community/core';
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import "@ag-grid-community/styles/ag-grid.css";
+import "@ag-grid-community/styles/ag-theme-alpine.css";
 
 import './index.css';
 import books from './books.json';
 
-// everything is terrible: https://github.com/TanStack/react-table/issues/3064
+ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
 
-function DefaultColumnFilter({
-  column: { filterValue, preFilteredRows, setFilter },
-}: any) {
-  const count = preFilteredRows.length
-  const placeholder = `Filtrer parmi ${count} livres…`;
-  return <>
-    <input
-      value={filterValue || ""}
-      onChange={e => setFilter(e.target.value || undefined)}
-      placeholder={placeholder}
-    />
-    {filterValue && <span className="clear-button" onClick={e => setFilter(undefined)}>×</span>}
-  </>
-}
+const MyFloatingFilter = forwardRef((props: IFloatingFilterParams, ref) => {
+    const [currentValue, setCurrentValue] = useState<boolean | undefined>(undefined);
+    const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
-function BooleanColumnFilter({
-  column: { filterValue, setFilter, preFilteredRows, id },
-}: any) {
-  const ref = React.useRef() as React.MutableRefObject<HTMLInputElement>;;
-
-  React.useEffect(() => {
-    if (ref.current == null) {
-      return;
+    function onChange() {
+        let newValue = currentValue === true ? false : currentValue === false ? undefined : true;
+        setCurrentValue(newValue);
+        props.parentFilterInstance((instance: IFloatingFilterParent) => {
+            if (newValue === undefined) {
+                instance.onFloatingFilterChanged(null, null);
+            } else {
+                instance.onFloatingFilterChanged(newValue ? 'true' : 'false', null);
+            }
+        });
     }
-    if (filterValue === true) {
-      ref.current.checked = true;
-      ref.current.indeterminate = false;
-    } else if (filterValue === false) {
-      ref.current.checked = false;
-      ref.current.indeterminate = false;
-    } else {
-      ref.current.checked = false;
-      ref.current.indeterminate = true;
-    }
-  }, [filterValue]);
-  return (
-    <input
-      type="checkbox"
-      value={filterValue}
-      onChange={e => setFilter(filterValue === true ? false : filterValue === false ? undefined : true)}
-      ref={ref}
-    />
-  )
-}
 
-function NumberRangeColumnFilter({
-  column: { filterValue = [], preFilteredRows, setFilter, id },
-}: any) {
-  const [min, max] = React.useMemo(() => {
-    let min = preFilteredRows.length ? preFilteredRows[0].values[id] : 0
-    let max = preFilteredRows.length ? preFilteredRows[0].values[id] : 0
-    preFilteredRows.forEach((row: any) => {
-      min = Math.min(row.values[id], min)
-      max = Math.max(row.values[id], max)
-    })
-    return [min, max]
-  }, [id, preFilteredRows])
+    useImperativeHandle(ref, (): IFloatingFilterReactComp => {
+        return {
+            onParentModelChanged(parentModel: FilterChangedEvent) {
+                if (parentModel) {
+                    setCurrentValue(parentModel.type === 'true');
+                } else {
+                    setCurrentValue(undefined);
+                }
+            }
+        }
+    });
 
-  return (
-    <div style={{ display: 'flex' }}>
-      <input
-        value={filterValue[0] || ''}
-        size={3}
-        onChange={e => {
-          const val = e.target.value
-          setFilter((old = []) => [val ? parseInt(val, 10) : undefined, old[1]])
-        }}
-        placeholder={min.toString()}
-        style={{ marginRight: '0.5rem' }}
-      />
-      à
-      <input
-        value={filterValue[1] || ''}
-        size={3}
-        onChange={e => {
-          const val = e.target.value
-          setFilter((old = []) => [old[0], val ? parseInt(val, 10) : undefined])
-        }}
-        placeholder={max.toString()}
-        style={{ marginLeft: '0.5rem' }}
-      />
-    </div>
-  )
-}
+    React.useEffect(() => {
+      const el = inputRef.current;
+      if (el == null) {
+        return;
+      }
+      if (currentValue === true) {
+        el.checked = true;
+        el.indeterminate = false;
+      } else if (currentValue === false) {
+        el.checked = false;
+        el.indeterminate = false;
+      } else {
+        el.checked = false;
+        el.indeterminate = true;
+      }
+    }, [currentValue]);
 
-const BooleanCell = ({ value }: any) => value ? '✅' : '❌';
-const ClickableCell = ({ value, column }: { value: string, column: any }) => {
-  return <span className="clickable" onClick={e => column.setFilter(value)}>{value}</span>
-}
-const ClickableListCell = ({ value, column }: { value: [string], column: any }) => {
-  return <span>
-    {value
-      .map((str, i) => <span key={i} className="clickable" onClick={e => column.setFilter(str)}>{str}</span>)
-      .reduce((acc, item) => <>{acc}, {item}</>)
-    }
-  </span>
-}
+    return (
+        <>
+            <input ref={inputRef} type="checkbox" value={"on"} onChange={onChange} />
+        </>
+    );
+});
 
 function BookTable({ owned }: { owned: boolean }) {
-  const columns = React.useMemo(() => [
-      { accessor: 'title', Header: 'Titre' },
-      { accessor: 'authors', Header: 'Auteurs', Cell: ClickableListCell, disableSortBy: true },
-      { accessor: 'genres', Header: 'Genres', Cell: ClickableListCell, disableSortBy: true },
-      { accessor: 'publication_year', Header: 'Année', Filter: NumberRangeColumnFilter, filter: 'between' },
-      { accessor: 'publication_date', Header: 'Publication' },
-      { accessor: 'editor', Header: 'Éditeur', Cell: ClickableCell },
-      { accessor: 'pages', Header: 'Pages', Filter: NumberRangeColumnFilter, filter: 'between' },
-      { accessor: 'isbn', Header: 'ISBN' },
-      { accessor: 'comic', Header: 'BD', Filter: BooleanColumnFilter, filter: "equals", Cell: BooleanCell, disableSortBy: true },
-      { accessor: 'read', Header: 'Lu', Filter: BooleanColumnFilter, filter: "equals", Cell: BooleanCell, disableSortBy: true },
-  ], [])
-
   const data = React.useMemo(() => books.filter(book => book.owned === owned), []);
 
-  const defaultColumn = React.useMemo(() => ({
-    Filter: DefaultColumnFilter,
-  }), [])
-
-  const table = useTable(
-    // @ts-ignore: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52969
-    { columns, data, defaultColumn, initialState: {sortBy: [{id: 'title', desc: false}], pageSize: 25} },
-    useFilters, useGlobalFilter, useSortBy, usePagination,
-  ) as any
-  const {
-      getTableProps,
-      getTableBodyProps,
-      headerGroups,
-      page,
-      prepareRow,
-      visibleColumns,
-      canPreviousPage,
-      canNextPage,
-      pageOptions,
-      pageCount,
-      gotoPage,
-      nextPage,
-      previousPage,
-      setPageSize,
-      state: { pageIndex, pageSize },
-  } = table;
+  const columns: ColDef<typeof books[0]>[] = React.useMemo(() => [
+      { field: 'title', headerName: 'Titre', filter: 'agTextColumnFilter', width: 300 },
+      { field: 'authors', headerName: 'Auteurs', filter: 'agTextColumnFilter' },
+      { field: 'genres', headerName: 'Genres', filter: 'agTextColumnFilter' },
+      { field: 'publication_year', headerName: 'Année', filter: 'agNumberColumnFilter', width: 100 },
+      { field: 'publication_date', headerName: 'Publication', filter: 'agDateColumnFilter' },
+      { field: 'editor', headerName: 'Éditeur', filter: 'agTextColumnFilter' },
+      { field: 'pages', headerName: 'Pages', filter: 'agNumberColumnFilter', width: 100 },
+      { field: 'isbn', headerName: 'ISBN', filter: 'agTextColumnFilter', width: 150 },
+      { field: 'comic', headerName: 'BD', filter: 'agTextColumnFilter', floatingFilterComponent: MyFloatingFilter, width: 100 },
+      { field: 'read', headerName: 'Lu', filter: 'agTextColumnFilter', floatingFilterComponent: MyFloatingFilter, width: 100 },
+  ], [])
 
   return (
-      <table {...getTableProps()}>
-        <thead>
-          <tr>
-            <th colSpan={visibleColumns.length}>
-              <div className="pagination">
-                <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-                  {'⏮'}
-                </button>{' '}
-                <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-                  {'◄'}
-                </button>{' '}
-                <span>
-                  Page{' '}
-                  <input
-                    type="number"
-                    value={pageIndex + 1}
-                    size={3}
-                    onChange={e => {
-                      const page = e.target.value ? Number(e.target.value) - 1 : 0
-                      gotoPage(page)
-                    }}
-                    style={{ maxWidth: '2em' }}
-                  />
-                  sur {pageOptions.length}
-                </span>
-                {' '}
-                <button onClick={() => nextPage()} disabled={!canNextPage}>
-                  {'►'}
-                </button>{' '}
-                <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-                  {'⏭'}
-                </button>
-                <br />
-                <select
-                  value={pageSize}
-                  onChange={e => {
-                    setPageSize(Number(e.target.value))
-                  }}
-                >
-                  {[25, 50, 100, 200].map(pageSize => (
-                    <option key={pageSize} value={pageSize}>
-                      Montrer {pageSize} livres par page
-                    </option>
-                  ))}
-                  <option key={pageSize} value={99999999}>
-                    Montrer tous les livres
-                  </option>
-                </select>
-              </div>
-            </th>
-          </tr>
-          {headerGroups.map((headerGroup: any) => (
-            <tr className="column-header" {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column: any) => (
-                <th {...column.getHeaderProps()}>
-                  <span {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render('Header')}
-                  {column.isSortedDesc ? ' 🔽' : column.isSorted ? ' 🔼' : ''}
-                  </span>
-                  <div>{column.canFilter ? column.render('Filter') : null}</div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row: any) => {
-            prepareRow(row)
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell: any) => {
-                  return (
-                    <td
-                      {...cell.getCellProps()}
-                    >
-                      {cell.render('Cell')}
-                    </td>
-                  )
-                })}
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-  )
+    <div className="ag-theme-alpine">
+        <AgGridReact
+            domLayout='autoHeight'
+            rowData={data}
+            columnDefs={columns}
+            defaultColDef={{ floatingFilter: true, sortable: true, resizable: true, tooltipValueGetter: (params) => params.value }}
+            enableCellTextSelection
+            tooltipShowDelay={300}
+            tooltipInteraction
+          />
+    </div>
+  );
 }
 
 function App() {
