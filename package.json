@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "npx @biomejs/biome check src",
+    "fix": "npx @biomejs/biome check --apply src",
     "preview": "vite preview"
   },
   "dependencies": {
