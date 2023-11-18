@@ -15,6 +15,7 @@ class Book(NamedTuple):
     authors: List[str]
     genres: List[str]
     publication_year: Optional[int]
+    isbn: str
     comic: bool
     read: bool
     owned: bool
@@ -36,6 +37,7 @@ def parse_book(book: pd.Series, comic: bool, owned: bool) -> dict:
         authors=book['Auteurs'].split(', '),
         genres=book['Genres'].split(', '),
         publication_year=publication_year,
+        isbn=book['ISBN'],
         comic=comic,
         read=book['Lu'] == 'Oui',
         owned=owned,

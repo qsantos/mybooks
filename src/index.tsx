@@ -1,7 +1,7 @@
 import React from 'react';
 import { forwardRef, useEffect, useImperativeHandle , useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ColDef, FilterChangedEvent, IFloatingFilterParams, IFloatingFilterParent } from '@ag-grid-community/core';
+import { ColDef, FilterChangedEvent, ICellRendererParams, IFloatingFilterParams, IFloatingFilterParent } from '@ag-grid-community/core';
 import { AgGridReact, IFloatingFilterReactComp } from '@ag-grid-community/react';
 import { ModuleRegistry } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
@@ -67,10 +67,19 @@ const MyFloatingFilter = forwardRef((props: IFloatingFilterParams, ref) => {
     );
 });
 
+function BookCover({ data }: ICellRendererParams) {
+    return (
+        <a href={`https://covers.openlibrary.org/b/ISBN/${data.isbn}-L.jpg `}>
+            <img src={`https://covers.openlibrary.org/b/ISBN/${data.isbn}-S.jpg `} className="cover" />
+        </a>
+    )
+}
+
 function BookTable({ owned }: { owned: boolean }) {
   const data = React.useMemo(() => books.filter(book => book.owned === owned), []);
 
   const columns: ColDef<typeof books[0]>[] = React.useMemo(() => [
+      { cellRenderer: BookCover, minWidth: 30, maxWidth: 30, cellStyle: { 'padding-left': 0, 'padding-right': 0 } },
       { field: 'title', headerName: 'Titre', filter: 'agTextColumnFilter', minWidth: 500 },
       { field: 'authors', headerName: 'Auteurs', filter: 'agTextColumnFilter', minWidth: 150 },
       { field: 'genres', headerName: 'Genres', filter: 'agTextColumnFilter', minWidth: 100 },
