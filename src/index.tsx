@@ -121,7 +121,7 @@ function BookTable({ owned }: { owned: boolean }) {
                 cellRenderer: BookCover,
                 minWidth: 30,
                 maxWidth: 30,
-                cellStyle: { "padding-left": 0, "padding-right": 0 },
+                cellStyle: { paddingLeft: 0, paddingRight: 0 },
             },
             {
                 field: "title",
