@@ -71,16 +71,16 @@ function BookTable({ owned }: { owned: boolean }) {
   const data = React.useMemo(() => books.filter(book => book.owned === owned), []);
 
   const columns: ColDef<typeof books[0]>[] = React.useMemo(() => [
-      { field: 'title', headerName: 'Titre', filter: 'agTextColumnFilter', width: 300 },
-      { field: 'authors', headerName: 'Auteurs', filter: 'agTextColumnFilter' },
-      { field: 'genres', headerName: 'Genres', filter: 'agTextColumnFilter' },
-      { field: 'publication_year', headerName: 'Année', filter: 'agNumberColumnFilter', width: 100 },
-      { field: 'publication_date', headerName: 'Publication', filter: 'agDateColumnFilter' },
-      { field: 'editor', headerName: 'Éditeur', filter: 'agTextColumnFilter' },
-      { field: 'pages', headerName: 'Pages', filter: 'agNumberColumnFilter', width: 100 },
-      { field: 'isbn', headerName: 'ISBN', filter: 'agTextColumnFilter', width: 150 },
-      { field: 'comic', headerName: 'BD', filter: 'agTextColumnFilter', floatingFilterComponent: MyFloatingFilter, width: 100 },
-      { field: 'read', headerName: 'Lu', filter: 'agTextColumnFilter', floatingFilterComponent: MyFloatingFilter, width: 100 },
+      { field: 'title', headerName: 'Titre', filter: 'agTextColumnFilter', minWidth: 500 },
+      { field: 'authors', headerName: 'Auteurs', filter: 'agTextColumnFilter', minWidth: 150 },
+      { field: 'genres', headerName: 'Genres', filter: 'agTextColumnFilter', minWidth: 100 },
+      { field: 'publication_year', headerName: 'Année', filter: 'agNumberColumnFilter', minWidth: 100 },
+      { field: 'publication_date', headerName: 'Publication', filter: 'agDateColumnFilter', minWidth: 200 },
+      { field: 'editor', headerName: 'Éditeur', filter: 'agTextColumnFilter', minWidth: 150 },
+      { field: 'pages', headerName: 'Pages', filter: 'agNumberColumnFilter', minWidth: 90 },
+      { field: 'isbn', headerName: 'ISBN', filter: 'agTextColumnFilter', minWidth: 140 },
+      { field: 'comic', headerName: 'BD', filter: 'agTextColumnFilter', floatingFilterComponent: MyFloatingFilter, minWidth: 70 },
+      { field: 'read', headerName: 'Lu', filter: 'agTextColumnFilter', floatingFilterComponent: MyFloatingFilter, minWidth: 70 },
   ], [])
 
   return (
@@ -93,6 +93,7 @@ function BookTable({ owned }: { owned: boolean }) {
             enableCellTextSelection
             tooltipShowDelay={300}
             tooltipInteraction
+            onGridReady={(event) => event.api.sizeColumnsToFit()}
           />
     </div>
   );
