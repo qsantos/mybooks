@@ -16,10 +16,10 @@ Have a look at a [live example](https://mybooks.qsantos.fr/).
 
 ```
 pip3 install pandas xlrd
-./export-book-wishlist >src/books.json
+./export-book-wishlist MyLibrary.xls >src/books.json
 npm ci
 npm run build
-x-www-browser build/index.html
+x-www-browser dist/index.html
 ```
 
-You can then host the `build/` directory on a web server to let other people access your library.
+You can then host the `dist/` directory on a web server to let other people access your library.
