@@ -169,9 +169,8 @@ function BookTable({ owned }: { owned: boolean }) {
     );
 
     return (
-        <div className="ag-theme-alpine">
+        <div className="ag-theme-alpine" style={{ height: "calc(100vh - 110px)" }}>
             <AgGridReact
-                domLayout="autoHeight"
                 rowData={data}
                 columnDefs={columns}
                 defaultColDef={{
