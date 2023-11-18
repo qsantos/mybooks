@@ -74,13 +74,9 @@ function BookTable({ owned }: { owned: boolean }) {
       { field: 'title', headerName: 'Titre', filter: 'agTextColumnFilter', minWidth: 500 },
       { field: 'authors', headerName: 'Auteurs', filter: 'agTextColumnFilter', minWidth: 150 },
       { field: 'genres', headerName: 'Genres', filter: 'agTextColumnFilter', minWidth: 100 },
-      { field: 'publication_year', headerName: 'Année', filter: 'agNumberColumnFilter', minWidth: 100 },
-      { field: 'publication_date', headerName: 'Publication', filter: 'agDateColumnFilter', minWidth: 200 },
-      { field: 'editor', headerName: 'Éditeur', filter: 'agTextColumnFilter', minWidth: 150 },
-      { field: 'pages', headerName: 'Pages', filter: 'agNumberColumnFilter', minWidth: 90 },
-      { field: 'isbn', headerName: 'ISBN', filter: 'agTextColumnFilter', minWidth: 140 },
-      { field: 'comic', headerName: 'BD', filter: 'agTextColumnFilter', floatingFilterComponent: MyFloatingFilter, minWidth: 70 },
-      { field: 'read', headerName: 'Lu', filter: 'agTextColumnFilter', floatingFilterComponent: MyFloatingFilter, minWidth: 70 },
+      { field: 'publication_year', headerName: 'Année', filter: 'agNumberColumnFilter', minWidth: 100, maxWidth: 100 },
+      { field: 'comic', headerName: 'BD', filter: 'agTextColumnFilter', floatingFilterComponent: MyFloatingFilter, minWidth: 70, maxWidth: 70 },
+      { field: 'read', headerName: 'Lu', filter: 'agTextColumnFilter', floatingFilterComponent: MyFloatingFilter, minWidth: 70, maxWidth: 70 },
   ], [])
 
   return (
