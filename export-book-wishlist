@@ -10,6 +10,21 @@ from dateutil.parser import parse as parse_date
 date_pattern = re.compile(r'^(?:([0-9]{2})/)?(?:([0-9]{2})/)?([0-9]{4})$')
 
 
+sheet_owned_books = 'Livres'
+sheet_owned_comics = 'Bandes Dessinées'
+sheet_wishlist_books = 'Livres - Liste de souhaits'
+sheet_wishlist_comics = 'Bandes Dessinées - Liste de sou'
+
+column_title = 'Titre'
+column_authors = 'Auteurs'
+column_categories = 'Genres'
+column_published_date = 'Date de publication'
+column_isbn = 'ISBN'
+column_read = 'Lu'
+
+bool_true = 'Oui'
+
+
 class Book(NamedTuple):
     title: str
     authors: List[str]
@@ -22,7 +37,7 @@ class Book(NamedTuple):
 
 
 def parse_book(book: pd.Series, comic: bool, owned: bool) -> dict:
-    publication = book['Date de publication']
+    publication = book[column_published_date]
     publication_date = None
     publication_year = None
     if publication:
@@ -33,13 +48,13 @@ def parse_book(book: pd.Series, comic: bool, owned: bool) -> dict:
             publication_date = publication_dt.date().isoformat()
             publication_year = publication_dt.year
     return Book(
-        title=book['Titre'],
-        authors=book['Auteurs'].split(', '),
-        genres=book['Genres'].split(', '),
+        title=book[column_title],
+        authors=book[column_authors].split(', '),
+        genres=book[column_categories].split(', '),
         publication_year=publication_year,
-        isbn=book['ISBN'],
+        isbn=book[column_isbn],
         comic=comic,
-        read=book['Lu'] == 'Oui',
+        read=book[column_read] == bool_true,
         owned=owned,
     )._asdict()
 
@@ -58,10 +73,10 @@ def main() -> None:
 
     df = pd.read_excel(args.filename, na_filter=False, sheet_name=None)
     books: list[dict] = []
-    books += parse_books(df['Livres'], comic=False, owned=True)
-    books += parse_books(df['Livres - Liste de souhaits'], comic=False, owned=False)
-    books += parse_books(df['Bandes Dessinées'], comic=True, owned=True)
-    books += parse_books(df['Bandes Dessinées - Liste de sou'], comic=True, owned=False)
+    books += parse_books(df[sheet_owned_books], comic=False, owned=True)
+    books += parse_books(df[sheet_wishlist_books], comic=False, owned=False)
+    books += parse_books(df[sheet_owned_comics], comic=True, owned=True)
+    books += parse_books(df[sheet_wishlist_comics], comic=True, owned=False)
     print(json.dumps(books))
 
 
