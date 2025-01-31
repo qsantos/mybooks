@@ -169,7 +169,7 @@ function BookTable({ owned }: { owned: boolean }) {
     );
 
     return (
-        <div className="ag-theme-alpine" style={{ height: "calc(100vh - 110px)" }}>
+        <div className="ag-theme-alpine" style={{ height: "calc(100vh - 112px)" }}>
             <AgGridReact
                 rowData={data}
                 columnDefs={columns}

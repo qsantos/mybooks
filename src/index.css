@@ -13,6 +13,7 @@ body {
 h1 {
   font-family: Z003, cursive;
   font-size: 50px;
+  line-height: 65px;
   font-weight:normal;
   overflow:visible;
   margin: 0 auto;
@@ -21,4 +22,8 @@ h1 {
 .cover {
     max-width: 30px;
     max-height: 42px;
+}
+.react-tabs__tab-list {
+    box-sizing: border-box;
+    height: 37px;
 }
